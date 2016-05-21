@@ -21,16 +21,14 @@ public class Home extends AppCompatActivity {
 
     private FirebaseDatabase firebase;
     private DatabaseReference ref;
+    private ArrayList stores;
 
-    public ArrayList getDataFromFirebase(String s) {
-        ref.child("Stores").addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getDataFromFirebase(String s) {
+        boolean error = false;
+        ref.child(s).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList values = (ArrayList) dataSnapshot.getValue();
-                Context c = getApplicationContext();
-                int d = Toast.LENGTH_SHORT;
-                Toast t = Toast.makeText(c, (String) values.get(0), d);
-                t.show();
             }
 
             @Override
@@ -40,15 +38,12 @@ public class Home extends AppCompatActivity {
         });
     }
 
-    public ArrayList getDataFromFirebase(String s1, String s2) {
+    public void getDataFromFirebase(String s1, String s2) {
+        boolean error = false;
         ref.child(s1).child(s2).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList values = (ArrayList) dataSnapshot.getValue();
-                Context c = getApplicationContext();
-                int d = Toast.LENGTH_SHORT;
-                Toast t = Toast.makeText(c, (String) values.get(0), d);
-                t.show();
+
             }
 
             @Override
@@ -56,6 +51,10 @@ public class Home extends AppCompatActivity {
 
             }
         });
+    }
+
+    public ArrayList returnArrayList(ArrayList a) {
+        return a;
     }
 
     @Override
