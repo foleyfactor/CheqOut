@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CheqOut</string>
+    <string name="go_button">Let's Go!</string>
 </resources>

@@ -26,18 +26,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="178dp"
         android:spinnerMode="dropdown"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:theme="@android:style/Widget.Holo.Light.Spinner"
+        android:layout_above="@+id/button"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="119dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Let&apos;s Go!"
+        android:text="@string/go_button"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34dp" />
+        android:layout_marginBottom="89dp" />
 </RelativeLayout>
