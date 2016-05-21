@@ -1,8 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.masseyhacks.sjam.cheqout.ScannerFragment">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.masseyhacks.sjam.cheqout.ScannerActivity">
 
     <com.masseyhacks.sjam.cheqout.camera.CameraSourcePreview
         android:id="@+id/preview"
@@ -16,4 +21,4 @@
 
     </com.masseyhacks.sjam.cheqout.camera.CameraSourcePreview>
 
-</FrameLayout>
+</RelativeLayout>
