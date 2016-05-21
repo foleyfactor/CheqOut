@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.masseyhacks.sjam.cheqout.Home"
-    android:background="#bbbbbb"
+    android:background="#00CC44"
     android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:text="@string/go_button"
         android:id="@+id/button"
+        android:layout_marginBottom="76dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="89dp" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
