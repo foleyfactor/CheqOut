@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "994340799260",
+    "firebase_url": "https://project-7952934720935018031.firebaseio.com",
+    "project_id": "project-7952934720935018031",
+    "storage_bucket": "project-7952934720935018031.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994340799260:android:56849e839d6d5c83",
+        "android_client_info": {
+          "package_name": "com.masseyhacks.sjam.cheqout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "994340799260-u4tcj9q1ein021ak4q3raoocc5janbaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [ {
+          "current_key": "AIzaSyBUvEHI4W9Km4H_J0QZ8gdJblQfP7HtXSo"
+      }],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
