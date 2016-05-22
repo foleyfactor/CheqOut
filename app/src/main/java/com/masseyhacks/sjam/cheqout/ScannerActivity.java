@@ -263,6 +263,7 @@ public final class ScannerActivity extends AppCompatActivity {
      *                     or {@link PackageManager#PERMISSION_DENIED}. Never null.
      * @see #requestPermissions(String[], int)
      */
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -333,7 +334,6 @@ public final class ScannerActivity extends AppCompatActivity {
      * @return true if the activity is ending.
      */
     private boolean onTap(float rawX, float rawY) {
-
         //TODO: use the tap position to select the barcode.
         BarcodeGraphic graphic = mGraphicOverlay.getFirstGraphic();
         Barcode barcode = null;
