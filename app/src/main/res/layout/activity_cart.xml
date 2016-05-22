@@ -6,6 +6,24 @@
     android:orientation="vertical"
     tools:context="com.masseyhacks.sjam.cheqout.cart.CartActivity">
 
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cart_list">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wrapper">
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
