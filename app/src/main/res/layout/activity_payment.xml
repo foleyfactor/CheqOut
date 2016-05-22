@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.masseyhacks.sjam.cheqout.payment.PaymentActivity">
+    tools:context="com.masseyhacks.sjam.cheqout.PaymentActivity">
 
     <fragment
         android:id="@+id/wallet_fragment"
@@ -16,5 +16,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         wallet:environment="test"
-        wallet:fragmentMode="buyButton"/>
+        wallet:fragmentMode="buyButton" />
 </RelativeLayout>

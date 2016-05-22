@@ -2,6 +2,8 @@ package com.masseyhacks.sjam.cheqout.cart;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,26 +17,53 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.masseyhacks.sjam.cheqout.PaymentActivity;
 import com.masseyhacks.sjam.cheqout.R;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class CartActivity extends AppCompatActivity {
+    public static String TAG = "CartActivity";
+
+    private HashMap<String, Double> items;
+    double total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // GO TO PAYMENT
+                Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+
+                int intTotal = (int) Math.round(total * 100);
+
+                intent.putExtra("items", items);
+                intent.putExtra("total", intTotal);
+                startActivity(intent);
+            }
+        });
+
         Intent intent = getIntent();
-        HashMap items = (HashMap) intent.getSerializableExtra("items");
-        Log.w("CartActivity", items.toString());
+        items = (HashMap) intent.getSerializableExtra("items");
+        Log.w(TAG, items.toString());
+
+        if (intent.getBooleanExtra("brain", false)) {
+            setContentView(R.layout.activity_cart_paid);
+        } else {
+            ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#BBBBBB"));
+            getSupportActionBar().setBackgroundDrawable(colorDrawable);
+        }
 
         ScrollView vs = (ScrollView) findViewById(R.id.cart_list);
         LinearLayout v = (LinearLayout) findViewById(R.id.wrapper);
 
-        double total = 0;
+        total = 0;
 
         for (Object o : items.keySet()) {
             String s = (String) o;
