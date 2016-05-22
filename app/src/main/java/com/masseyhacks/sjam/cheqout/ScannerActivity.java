@@ -296,7 +296,7 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
         // at long distances.
         CameraSource.Builder builder = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedPreviewSize(1600, 1024)
+                .setRequestedPreviewSize(1024, 1024)
                 .setRequestedFps(30.0f);
 
         // make sure that auto focus is an available option
@@ -306,7 +306,7 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
         }
 
         mCameraSource = builder
-                .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+                .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_RED_EYE : null)
                 .build();
     }
 
@@ -390,7 +390,7 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Multitracker sample")
                 .setMessage("i can haz camera")
-                .setPositiveButton("kk", listener)
+                .setPositiveButton("ok", listener)
                 .show();
     }
 

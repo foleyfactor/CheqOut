@@ -32,9 +32,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
     private int mId;
 
     private static final int COLOR_CHOICES[] = {
-            Color.BLUE,
-            Color.CYAN,
-            Color.GREEN
+            Color.WHITE
     };
 
     private static int mCurrentColorIndex = 0;
@@ -56,7 +54,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
 
         mTextPaint = new Paint();
         mTextPaint.setColor(selectedColor);
-        mTextPaint.setTextSize(96.0f);
+        mTextPaint.setTextSize(48.0f);
     }
 
     public int getId() {
@@ -96,6 +94,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         rect.top = translateY(rect.top);
         rect.right = translateX(rect.right);
         rect.bottom = translateY(rect.bottom);
+        canvas.drawRect(rect, mRectPaint);
 
         // Draws a label at the bottom of the barcode indicate the barcode value that was detected.
         canvas.drawText(barcode.rawValue, rect.left, rect.bottom, mTextPaint);

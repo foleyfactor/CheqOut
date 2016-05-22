@@ -9,7 +9,11 @@
     <com.masseyhacks.sjam.cheqout.camera.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="240dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="0dp">
 
         <com.masseyhacks.sjam.cheqout.camera.GraphicOverlay
             android:id="@+id/graphicOverlay"
@@ -21,9 +25,8 @@
 
     <fragment class="com.masseyhacks.sjam.cheqout.cart.CartItemFragment"
         android:id="@+id/fragment_cart"
-        android:layout_weight="2"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         tools:layout="@layout/fragment_cartitem_list" />
 
     <!--<fragment-->
