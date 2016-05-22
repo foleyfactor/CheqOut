@@ -96,7 +96,6 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         rect.top = translateY(rect.top);
         rect.right = translateX(rect.right);
         rect.bottom = translateY(rect.bottom);
-        canvas.drawRect(rect, mRectPaint);
 
         // Draws a label at the bottom of the barcode indicate the barcode value that was detected.
         canvas.drawText(barcode.rawValue, rect.left, rect.bottom, mTextPaint);

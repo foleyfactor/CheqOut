@@ -15,8 +15,10 @@
  */
 package com.masseyhacks.sjam.cheqout.barcode;
 
+import android.content.Intent;
 import android.util.Log;
 
+import com.masseyhacks.sjam.cheqout.ScannerActivity;
 import com.masseyhacks.sjam.cheqout.camera.GraphicOverlay;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Tracker;
@@ -55,12 +57,10 @@ class BarcodeGraphicTracker extends Tracker<Barcode> {
         mOverlay.add(mGraphic);
         mGraphic.updateItem(item);
         if (item != null) {
-            if (lastBarcode == null) {
+            if (lastBarcode == null && !(lastBarcode.equals(item.rawValue))) {
                 lastBarcode = item.rawValue;
-            } else if (lastBarcode.equals(item.rawValue)) {
-                
-            } else {
-                lastBarcode = item.rawValue;
+            } else { // Barcode consistent for at least 1 frame
+                // TODO: SEND BARCODE
             }
         }
     }
