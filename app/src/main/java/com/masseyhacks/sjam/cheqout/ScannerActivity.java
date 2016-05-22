@@ -65,6 +65,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.concurrent.LinkedTransferQueue;
 
 /**
  * Activity for the multi-tracker app.  This app detects barcodes and displays the value with the
@@ -89,6 +90,7 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
     private DatabaseReference ref = firebase.getReference() ;
 
     private LinkedHashMap<String, Double> items;
+    private LinkedHashMap<Double, Integer> quantities;
 
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
@@ -116,6 +118,7 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
         setContentView(R.layout.activity_scanner);
 
         items = new LinkedHashMap();
+        quantities = new LinkedHashMap();
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<BarcodeGraphic>) findViewById(R.id.graphicOverlay);
@@ -212,6 +215,7 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
                             toast = true;
                             text = info.get(0) + ": $" + info.get(1);
                             items.put(info.get(0), Double.parseDouble(info.get(1)));
+                            quantities.put(Double.parseDouble(info.get(0)), 1);
                         }
                     }
                 }
