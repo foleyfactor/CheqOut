@@ -30,10 +30,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:src="@android:drawable/ic_dialog_email"
+        android:src="@drawable/ic_cart"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/fab_margin" />
+        android:layout_margin="@dimen/fab_margin"
+        android:scaleType="center" />
 
     <!--<fragment class="com.masseyhacks.sjam.cheqout.cart.CartItemFragment"-->
         <!--android:id="@+id/fragment_cart"-->

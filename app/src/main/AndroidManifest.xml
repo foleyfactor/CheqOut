@@ -14,12 +14,16 @@
         <activity android:name=".ScannerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Home" />
-        <activity android:name=".cart.CartActivity"></activity>
+        <activity android:name=".cart.CartActivity" />
+        <activity android:name=".payment.PaymentActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
     </application>
 
 </manifest>
