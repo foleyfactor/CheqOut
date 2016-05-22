@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.masseyhacks.sjam.cheqout.ScannerActivity">
+    tools:context="com.masseyhacks.sjam.cheqout.ScannerActivity"
+    android:orientation="vertical">
 
     <com.masseyhacks.sjam.cheqout.camera.CameraSourcePreview
         android:id="@+id/preview"
@@ -22,4 +19,19 @@
 
     </com.masseyhacks.sjam.cheqout.camera.CameraSourcePreview>
 
-</RelativeLayout>
+    <fragment class="com.masseyhacks.sjam.cheqout.cart.CartItemFragment"
+        android:id="@+id/fragment_cart"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_cartitem_list" />
+
+    <!--<fragment-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:name="com.masseyhacks.sjam.cheqout.cart.CartItemFragment"-->
+        <!--android:id="@+id/fragment2"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true" />-->
+
+</LinearLayout>
