@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.masseyhacks.sjam.cheqout.ScannerActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.masseyhacks.sjam.cheqout.ScannerActivity">
 
     <com.masseyhacks.sjam.cheqout.camera.CameraSourcePreview
         android:id="@+id/preview"
@@ -19,15 +19,27 @@
             android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="false" />
+            android:clickable="false"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
     </com.masseyhacks.sjam.cheqout.camera.CameraSourcePreview>
 
-    <fragment class="com.masseyhacks.sjam.cheqout.cart.CartItemFragment"
-        android:id="@+id/fragment_cart"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:layout="@layout/fragment_cartitem_list" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_dialog_email"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/fab_margin" />
+
+    <!--<fragment class="com.masseyhacks.sjam.cheqout.cart.CartItemFragment"-->
+        <!--android:id="@+id/fragment_cart"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--tools:layout="@layout/fragment_cartitem_list" />-->
 
     <!--<fragment-->
         <!--android:layout_width="fill_parent"-->
@@ -37,4 +49,4 @@
         <!--android:layout_alignParentBottom="true"-->
         <!--android:layout_centerHorizontal="true" />-->
 
-</LinearLayout>
+</RelativeLayout>

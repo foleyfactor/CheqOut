@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.masseyhacks.sjam.cheqout.R;
@@ -61,6 +63,14 @@ public class CartItemFragment extends ListFragment implements OnItemClickListene
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+//        Button b = (Button)findViewById(R.id.);
+//        b.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -70,6 +80,7 @@ public class CartItemFragment extends ListFragment implements OnItemClickListene
 
         // Set the adapter
         if (view instanceof RecyclerView) {
+            Log.e("LISTVIEW", "LISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEWLISTVIEW");
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {

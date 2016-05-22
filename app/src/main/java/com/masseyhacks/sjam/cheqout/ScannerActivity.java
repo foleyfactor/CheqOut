@@ -31,14 +31,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -58,6 +59,7 @@ import com.masseyhacks.sjam.cheqout.barcode.BarcodeTrackerFactory;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.masseyhacks.sjam.cheqout.cart.CartActivity;
 import com.masseyhacks.sjam.cheqout.cart.CartItemFragment;
 import com.masseyhacks.sjam.cheqout.cart.dummy.DummyContent;
 
@@ -65,7 +67,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.LinkedTransferQueue;
 
 /**
  * Activity for the multi-tracker app.  This app detects barcodes and displays the value with the
@@ -90,7 +91,7 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
     private DatabaseReference ref = firebase.getReference() ;
 
     private LinkedHashMap<String, Double> items;
-    private LinkedHashMap<Double, Integer> quantities;
+//    private LinkedHashMap<Double, Integer> quantities;
 
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
@@ -117,8 +118,19 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // GO TO CART
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                intent.putExtra("items", items);
+                startActivity(intent);
+            }
+        });
+
         items = new LinkedHashMap();
-        quantities = new LinkedHashMap();
+//        quantities = new LinkedHashMap();
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<BarcodeGraphic>) findViewById(R.id.graphicOverlay);
@@ -215,7 +227,7 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
                             toast = true;
                             text = info.get(0) + ": $" + info.get(1);
                             items.put(info.get(0), Double.parseDouble(info.get(1)));
-                            quantities.put(Double.parseDouble(info.get(0)), 1);
+//                            quantities.put(Double.parseDouble(info.get(1)), 1);
                         }
                     }
                 }
@@ -224,7 +236,6 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
                 }
             }
         });
-
     }
 
     /**
@@ -317,7 +328,7 @@ public final class ScannerActivity extends AppCompatActivity implements CartItem
         // at long distances.
         CameraSource.Builder builder = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedPreviewSize(1024, 1024)
+                .setRequestedPreviewSize(1600, 1600)
                 .setRequestedFps(30.0f);
 
         // make sure that auto focus is an available option
