@@ -15,6 +15,7 @@
  */
 package com.masseyhacks.sjam.cheqout.barcode;
 
+import com.masseyhacks.sjam.cheqout.ScannerActivity;
 import com.masseyhacks.sjam.cheqout.camera.GraphicOverlay;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.Tracker;
@@ -26,15 +27,17 @@ import com.google.android.gms.vision.barcode.Barcode;
  */
 public class BarcodeTrackerFactory implements MultiProcessor.Factory<Barcode> {
     private GraphicOverlay<BarcodeGraphic> mGraphicOverlay;
+    private ScannerActivity scanner;
 
-    public BarcodeTrackerFactory(GraphicOverlay<BarcodeGraphic> barcodeGraphicOverlay) {
+    public BarcodeTrackerFactory(GraphicOverlay<BarcodeGraphic> barcodeGraphicOverlay, ScannerActivity s) {
+        this.scanner = s;
         mGraphicOverlay = barcodeGraphicOverlay;
     }
 
     @Override
     public Tracker<Barcode> create(Barcode barcode) {
         BarcodeGraphic graphic = new BarcodeGraphic(mGraphicOverlay);
-        return new BarcodeGraphicTracker(mGraphicOverlay, graphic);
+        return new BarcodeGraphicTracker(mGraphicOverlay, graphic, this.scanner);
     }
 
 }

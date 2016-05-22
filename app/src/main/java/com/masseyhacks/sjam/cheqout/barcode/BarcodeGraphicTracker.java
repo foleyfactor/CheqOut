@@ -15,7 +15,6 @@
  */
 package com.masseyhacks.sjam.cheqout.barcode;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.masseyhacks.sjam.cheqout.ScannerActivity;
@@ -34,11 +33,13 @@ class BarcodeGraphicTracker extends Tracker<Barcode> {
     private GraphicOverlay<BarcodeGraphic> mOverlay;
     private BarcodeGraphic mGraphic;
     private String lastBarcode = null;
+    private ScannerActivity scanner;
     static final String TAG = "BcodeTracker";
 
-    BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> overlay, BarcodeGraphic graphic) {
+    BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> overlay, BarcodeGraphic graphic, ScannerActivity s) {
         mOverlay = overlay;
         mGraphic = graphic;
+        this.scanner = s;
     }
 
     /**
@@ -57,10 +58,12 @@ class BarcodeGraphicTracker extends Tracker<Barcode> {
         mOverlay.add(mGraphic);
         mGraphic.updateItem(item);
         if (item != null) {
-            if (lastBarcode == null && !(lastBarcode.equals(item.rawValue))) {
+            if (lastBarcode == null) {
                 lastBarcode = item.rawValue;
-            } else { // Barcode consistent for at least 1 frame
-                // TODO: SEND BARCODE
+            } else if (lastBarcode.equals(item.rawValue)) {
+                this.scanner.addToCart(lastBarcode);
+            } else {
+                lastBarcode = item.rawValue;
             }
         }
     }
