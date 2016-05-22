@@ -133,7 +133,7 @@ public class CameraSource {
     // These values may be requested by the caller.  Due to hardware limitations, we may need to
     // select close, but not exactly the same values for these.
     private float mRequestedFps = 30.0f;
-    private int mRequestedPreviewWidth = 1024; //doubled
+    private int mRequestedPreviewWidth = 1024;
     private int mRequestedPreviewHeight = 768;
 
 

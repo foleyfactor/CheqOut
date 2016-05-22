@@ -38,6 +38,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -57,6 +58,8 @@ import com.masseyhacks.sjam.cheqout.barcode.BarcodeTrackerFactory;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.masseyhacks.sjam.cheqout.cart.CartItemFragment;
+import com.masseyhacks.sjam.cheqout.cart.dummy.DummyContent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,7 +71,7 @@ import java.util.List;
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and ID of each barcode.
  */
-public final class ScannerActivity extends AppCompatActivity {
+public final class ScannerActivity extends AppCompatActivity implements CartItemFragment.OnListFragmentInteractionListener {
     private static final String TAG = "Barcode-reader";
 
     // intent request code to handle updating play services if needed.
@@ -95,12 +98,21 @@ public final class ScannerActivity extends AppCompatActivity {
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
 
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
+    public interface OnListFragmentInteractionListener {
+        public void onArticleSelected(int position);
+    }
+
     /**
      * Initializes the UI and creates the detector pipeline.
      */
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
 
         items = new LinkedHashMap();
@@ -302,7 +314,7 @@ public final class ScannerActivity extends AppCompatActivity {
         CameraSource.Builder builder = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedPreviewSize(1600, 1024)
-                .setRequestedFps(15.0f);
+                .setRequestedFps(30.0f);
 
         // make sure that auto focus is an available option
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
