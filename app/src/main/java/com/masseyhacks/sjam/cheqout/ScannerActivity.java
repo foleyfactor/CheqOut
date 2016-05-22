@@ -60,7 +60,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -85,6 +85,8 @@ public final class ScannerActivity extends AppCompatActivity {
     private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
     private DatabaseReference ref = firebase.getReference() ;
 
+    private LinkedHashMap<String, Double> items;
+
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
     private GraphicOverlay<BarcodeGraphic> mGraphicOverlay;
@@ -100,6 +102,8 @@ public final class ScannerActivity extends AppCompatActivity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_scanner);
+
+        items = new LinkedHashMap();
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<BarcodeGraphic>) findViewById(R.id.graphicOverlay);
@@ -151,13 +155,14 @@ public final class ScannerActivity extends AppCompatActivity {
                     GenericTypeIndicator<List<String>> a = new GenericTypeIndicator<List<String>>() {
                     };
                     List<String> ar = dataSnapshot.getValue(a);
-                    Log.e(TAG, ar.size() + "");
+//                    Log.e(TAG, ar.size() + "");
                     for (Object o : ar) {
                         arr.add(o);
                     }
-                    Log.e(TAG, dataSnapshot.getChildrenCount() + "");
+                    //Log.e(TAG, dataSnapshot.getChildrenCount() + "");
                     finished.add('1');
                 } catch (Exception e) {
+                    arr.add("1");
                     error.add('1');
                 }
             }
@@ -174,21 +179,33 @@ public final class ScannerActivity extends AppCompatActivity {
     }
 
     public void addToCart(String itemID) {
-        final ArrayList info = getCartInfoFromFirebase("Products", itemID);
+        final ArrayList<String> info = getCartInfoFromFirebase("Products", itemID);
+        //Log.e(TAG, info.size() + "");
         Handler h = new Handler(Looper.getMainLooper());
         h.post(new Runnable() {
 
             @Override
             public void run() {
                 Context context = getApplicationContext();
-                String text;
-                if (!info.isEmpty() ) {
-                    text = "You scanned a " + info.get(0) + " which costs: " + info.get(1);
-                } else {
-                    text = "Item not recognized. Please try again.";
+                String text = "";
+                boolean toast = false;
+                if (!info.isEmpty()) {
+                    //Item not in database
+                    //Log.e(TAG, info.get(0));
+                    if (info.get(0).equals("1")) {
+                        text = "Item not recognized. Please try again.";
+                        toast = true;
+                    } else {
+                        if (!items.containsKey(info.get(0))) {
+                            toast = true;
+                            text = info.get(0) + ": $" + info.get(1);
+                            items.put(info.get(0), Double.parseDouble(info.get(1)));
+                        }
+                    }
                 }
-                Toast t = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-                t.show();
+                if (toast) {
+                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
