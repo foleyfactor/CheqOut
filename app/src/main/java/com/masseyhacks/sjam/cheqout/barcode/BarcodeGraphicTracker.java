@@ -17,6 +17,7 @@ package com.masseyhacks.sjam.cheqout.barcode;
 
 import android.util.Log;
 
+import com.masseyhacks.sjam.cheqout.ScannerActivity;
 import com.masseyhacks.sjam.cheqout.camera.GraphicOverlay;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Tracker;
@@ -32,11 +33,13 @@ class BarcodeGraphicTracker extends Tracker<Barcode> {
     private GraphicOverlay<BarcodeGraphic> mOverlay;
     private BarcodeGraphic mGraphic;
     private String lastBarcode = null;
+    private ScannerActivity scanner;
     static final String TAG = "BcodeTracker";
 
-    BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> overlay, BarcodeGraphic graphic) {
+    BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> overlay, BarcodeGraphic graphic, ScannerActivity s) {
         mOverlay = overlay;
         mGraphic = graphic;
+        this.scanner = s;
     }
 
     /**
@@ -58,7 +61,7 @@ class BarcodeGraphicTracker extends Tracker<Barcode> {
             if (lastBarcode == null) {
                 lastBarcode = item.rawValue;
             } else if (lastBarcode.equals(item.rawValue)) {
-                
+                this.scanner.addToCart(lastBarcode);
             } else {
                 lastBarcode = item.rawValue;
             }
