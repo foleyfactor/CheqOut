@@ -28,6 +28,8 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +47,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.masseyhacks.sjam.cheqout.camera.CameraSource;
 import com.masseyhacks.sjam.cheqout.camera.CameraSourcePreview;
@@ -57,6 +60,8 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Activity for the multi-tracker app.  This app detects barcodes and displays the value with the
@@ -77,8 +82,8 @@ public final class ScannerActivity extends AppCompatActivity {
     public static final String UseFlash = "UseFlash";
     public static final String BarcodeObject = "Barcode";
 
-    private FirebaseDatabase firebase;
-    private DatabaseReference ref;
+    private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = firebase.getReference() ;
 
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
@@ -135,12 +140,26 @@ public final class ScannerActivity extends AppCompatActivity {
         });
     }
 
-    public void getCartInfoFromFirebase(String s1, String s2) {
-        boolean error = false;
+    public ArrayList getCartInfoFromFirebase(String s1, String s2) {
+        final ArrayList error = new ArrayList();
+        final ArrayList finished = new ArrayList();
+        final ArrayList arr = new ArrayList();
         ref.child(s1).child(s2).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                try {
+                    GenericTypeIndicator<List<String>> a = new GenericTypeIndicator<List<String>>() {
+                    };
+                    List<String> ar = dataSnapshot.getValue(a);
+                    Log.e(TAG, ar.size() + "");
+                    for (Object o : ar) {
+                        arr.add(o);
+                    }
+                    Log.e(TAG, dataSnapshot.getChildrenCount() + "");
+                    finished.add('1');
+                } catch (Exception e) {
+                    error.add('1');
+                }
             }
 
             @Override
@@ -148,11 +167,31 @@ public final class ScannerActivity extends AppCompatActivity {
 
             }
         });
+        while (error.isEmpty() && finished.isEmpty()) {
+            System.out.print("");
+        }
+        return arr;
     }
 
     public void addToCart(String itemID) {
-        //ArrayList info = getDataFromFirebase("Products", itemID);
-        Log.e(TAG, itemID);
+        final ArrayList info = getCartInfoFromFirebase("Products", itemID);
+        Handler h = new Handler(Looper.getMainLooper());
+        h.post(new Runnable() {
+
+            @Override
+            public void run() {
+                Context context = getApplicationContext();
+                String text;
+                if (!info.isEmpty() ) {
+                    text = "You scanned a " + info.get(0) + " which costs: " + info.get(1);
+                } else {
+                    text = "Item not recognized. Please try again.";
+                }
+                Toast t = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                t.show();
+            }
+        });
+
     }
 
     /**
