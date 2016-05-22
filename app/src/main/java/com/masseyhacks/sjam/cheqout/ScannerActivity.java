@@ -41,6 +41,11 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.masseyhacks.sjam.cheqout.camera.CameraSource;
 import com.masseyhacks.sjam.cheqout.camera.CameraSourcePreview;
 import com.masseyhacks.sjam.cheqout.camera.GraphicOverlay;
@@ -51,6 +56,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Activity for the multi-tracker app.  This app detects barcodes and displays the value with the
@@ -70,6 +76,9 @@ public final class ScannerActivity extends AppCompatActivity {
     public static final String AutoFocus = "AutoFocus";
     public static final String UseFlash = "UseFlash";
     public static final String BarcodeObject = "Barcode";
+
+    private FirebaseDatabase firebase;
+    private DatabaseReference ref;
 
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
@@ -109,6 +118,40 @@ public final class ScannerActivity extends AppCompatActivity {
 //        Snackbar.make(mGraphicOverlay, "Tap to capture. Pinch/Stretch to zoom",
 //                Snackbar.LENGTH_LONG)
 //                .show();
+    }
+
+    public void getDataFromFirebase(String s) {
+        boolean error = false;
+        ref.child(s).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList values = (ArrayList) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getCartInfoFromFirebase(String s1, String s2) {
+        boolean error = false;
+        ref.child(s1).child(s2).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void addToCart(String itemID) {
+        ArrayList info = getDataFromFirebase("Products", itemID);
     }
 
     /**
