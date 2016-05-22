@@ -1,9 +1,19 @@
 package com.masseyhacks.sjam.cheqout.cart;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.masseyhacks.sjam.cheqout.R;
 
@@ -21,5 +31,77 @@ public class CartActivity extends AppCompatActivity {
         HashMap items = (HashMap) intent.getSerializableExtra("items");
         Log.w("CartActivity", items.toString());
 
+        ScrollView vs = (ScrollView) findViewById(R.id.cart_list);
+        LinearLayout v = (LinearLayout) findViewById(R.id.wrapper);
+
+        double total = 0;
+
+        for (Object o : items.keySet()) {
+            String s = (String) o;
+            total += (double) items.get(o);
+            LinearLayout layout = new LinearLayout(this);
+            TextView left = new TextView(this);
+            TextView right = new TextView(this);
+            //LinearLayout.LayoutParams lplay = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams lpl = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            View lol = new View(this);
+            LinearLayout.LayoutParams lolp = new LinearLayout.LayoutParams(0, 0, 1);
+            lol.setLayoutParams(lolp);
+            layout.setOrientation(LinearLayout.HORIZONTAL);
+
+            lpl.setMargins(50, 0, 0, 0);
+            right.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+            lpl.gravity = Gravity.LEFT;
+            left.setTextSize(30);
+            left.setText("\n" + s + "\n");
+            LinearLayout.LayoutParams lpr = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lpr.gravity = Gravity.RIGHT;
+            lpr.setMargins(0, 0, 50, 0);
+            right.setTextSize(30);
+            right.setText("\n$" + items.get(o) + "\n");
+            left.setLayoutParams(lpl);
+            right.setLayoutParams(lpr);
+            layout.addView(left);
+            layout.addView(lol);
+            layout.addView(right);
+
+            v.addView(layout);
+        }
+        View view = new View(this);
+        LinearLayout.LayoutParams viewlp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 4, 1);
+        view.setLayoutParams(viewlp);
+        view.setBackgroundColor(Color.GRAY);
+        v.addView(view);
+
+        LinearLayout layout = new LinearLayout(this);
+        TextView left = new TextView(this);
+        TextView right = new TextView(this);
+        //LinearLayout.LayoutParams lplay = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lpl = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        View lol = new View(this);
+        LinearLayout.LayoutParams lolp = new LinearLayout.LayoutParams(0, 0, 1);
+        lol.setLayoutParams(lolp);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+
+        lpl.setMargins(50, 0, 0, 0);
+        right.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+        lpl.gravity = Gravity.LEFT;
+        left.setTextSize(30);
+        left.setText("\nTotal\n");
+        LinearLayout.LayoutParams lpr = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lpr.gravity = Gravity.RIGHT;
+        lpr.setMargins(0, 0, 50, 0);
+        right.setTextSize(30);
+        right.setText("\n$" + total + "\n");
+        left.setLayoutParams(lpl);
+        right.setLayoutParams(lpr);
+        layout.addView(left);
+        layout.addView(lol);
+        layout.addView(right);
+
+        v.addView(layout);
+
+        vs.removeAllViews();
+        vs.addView(v);
     }
 }
