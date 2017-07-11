@@ -14,11 +14,11 @@ Cheqout expedites the process of waiting in line at stores: simply scan the prod
  - Mobile Checkout for In-Store Purchases
  - Beautiful App Icon
 
-##Challenges We Faced
+## Challenges We Faced
 
 Although some of us had developed for Android in the past, none of us were super familiar with fragments. We spent a lot of time trying to create fragments and ended up having to use activities for some of the things we had originally planned on putting in fragments. Additionally, the fact that certain things depended on one another in order to be created/tested made it difficult at times for multiple people to be working.
 
-##Where do we go from here?
+## Where do we go from here?
 
 Here are the things that we would like to implement going forward:
 
@@ -29,7 +29,7 @@ Here are the things that we would like to implement going forward:
  - **More Languages:** We felt that an app like CheqOut would be invaluable for travellers and new immigrants to a country with a different language. CheqOut eliminates the need to communicate with cashiers as you checkout, which means that if you don't speak the native language it's not a problem. By having CheqOut be available in more languages, we feel that more people would be able to benefit from this.
  - **Adding More Products:** Naturally, due to the time restraint of the hackathon, there are only a limited number of products in CheqOut's database. We would like to either build a form or second scanner app to add items to CheqOut's database which would make it faster and more convenient to add things to the app than having to do it through Firebase itself.
 
-##Talk Techy to Me (APIs)
+## Talk Techy to Me (APIs)
 
 CheqOut uses Google's Vision API which provides barcode scanning capabilities. The information for all of the products is stored and accessed using Firebase and its Android API, respectively. Payment is done using Stripe's Android API and Android Pay. 
 
